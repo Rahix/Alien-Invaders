@@ -15,6 +15,18 @@
         canvas.width = window.innerWidth-20;
         canvas.height = window.innerHeight-40;
       }
+      
+      function mouseEventDown(event)
+      {
+      }
+      
+      function mouseEventUp(event)
+      {
+      }
+      
+      function mouseEventMove(event)
+      {
+      }
     </script>
   </head>
   <body onload="init();">
