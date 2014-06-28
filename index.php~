@@ -5,7 +5,7 @@
     <script>
       var canvas;		//CANVAS opject
       var cctx;		        //Canvas ConTeXt
-      
+      var xmlhttp;        //For ajax loads
       //Init-Function:
       function init()
       {
@@ -14,6 +14,30 @@
         //Set sizes
         canvas.width = window.innerWidth-20;
         canvas.height = window.innerHeight-40;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+  	  xmlhttp=new XMLHttpRequest();
+        }
+        else
+  	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        {// code for IE6, IE5
+        xmlhttp.open("GET","maps/1.json",false);
+        xmlhttp.send();
+        mapdata = JSON.parse(xmlhttp.responseText);
+        alert(str(mapdata.General.Size.X));
+      }
+      }
+      
+      function mouseEventDown(event)
+      {
+      }
+      
+      function mouseEventUp(event)
+      {
+      }
+      
+      function mouseEventMove(event)
+      {
       }
     </script>
   </head>
