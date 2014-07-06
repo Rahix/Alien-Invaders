@@ -6,8 +6,13 @@
       var canvas;		//CANVAS opject
       var cctx;		        //Canvas ConTeXt
       var xmlhttp;        //For ajax loads
+      var FPS;
       var map;
-      var mapdata
+      var mapdata;
+      var state;
+      var wave;
+      var interval;
+      
       //Init-Function:
       function init()
       {
@@ -26,7 +31,45 @@
         xmlhttp.send();
         mapdata = JSON.parse(xmlhttp.responseText);
         map = mapdata.Data;
-        drawMap(0,0,canvas.width,canvas.height);S
+        FPS = 30;
+        state = 'AREG';//Alien REGister
+        wave = 1;
+        interval = window.setInterval(loop,(1 / FPS));
+      }
+      
+      function loop()
+      {
+        if(state == 'WAVE')
+        {
+          //Send out all registered Aliens
+          wave++;
+        }
+        else if(state == 'AREG')
+        {
+          switch(wave)
+          {
+            case 1:
+              //Two Normal Aliens
+              break;
+            case 2:
+              //Four Normal Aliens
+              break;
+            default:
+              alert("You played through!");
+          }
+          state = 'WAVE';
+        }
+        else if(state == 'IDLE')
+        {
+          //Don't do anything in the moment
+        }
+        drawMap(0,0,canvas.width,canvas.height);
+        //Alert aliens to draw
+        alienDraw();
+      }
+      
+      function alienDraw()
+      {
       }
       
       function drawMap(xOff,yOff,xSize,ySize)
@@ -88,5 +131,6 @@
             onmousemove="mouseEventMove(event);"><b>You can not play the game :/</b></canvas>
     <!-- Images -->
     <img src="img/tiles/9/1.png" height='0' width='0' id="tile"/>
+    <img src="img/aliens/First.png" height='0' width='0' id="alien"/>
   </body>
 </html>
