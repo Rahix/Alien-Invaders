@@ -6,6 +6,8 @@
       var canvas;		//CANVAS opject
       var cctx;		        //Canvas ConTeXt
       var xmlhttp;        //For ajax loads
+      var map;
+      var mapdata
       //Init-Function:
       function init()
       {
@@ -18,14 +20,48 @@
         {// code for IE7+, Firefox, Chrome, Opera, Safari
   	  xmlhttp=new XMLHttpRequest();
         }
-        else
+        else // code for IE6, IE5
   	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        {// code for IE6, IE5
-        xmlhttp.open("GET","maps/1.json",false);
+        xmlhttp.open("GET","maps/map1.json?t=" + Math.random(),false);
         xmlhttp.send();
         mapdata = JSON.parse(xmlhttp.responseText);
-        alert(mapdata.General.Size.X);
+        map = mapdata.Data;
+        var foo;
+        document.getElementById("Foo").innerHTML;
+        foo = mapdata.General.Size.X;
+        document.getElementById("Foo").innerHTML = foo;
       }
+      
+      function drawMap(xOff,yOff,xSize,ySize)
+      {
+         var tileX;
+         var tileY;
+         
+         
+         var try1;
+         var try2;
+         
+         try1 = ySize / mapdata.General.Size.Y;
+         try2 = xSize / mapdata.General.Size.X;
+         if(try1 > try2)
+           tileX = try2;
+         else
+           tileX = try1;
+         tileY = tileX;
+         //Now Start to Draw
+         var i;
+         var t;
+         for(i = 0; i < mapdata.General.Size.X;i++)
+         {
+           for(t=0;t<mapdata.General.Size.Y;t++)
+           {
+             alert('');
+           }
+         }
+      }
+      
+      function draw()
+      {
       }
       
       function mouseEventDown(event)
@@ -46,5 +82,8 @@
             onmousedown="mouseEventDown(event);"
             onmouseup="mouseEventUp(event);"
             onmousemove="mouseEventMove(event);"><b>You can not play the game :/</b></canvas>
+    <!-- Images -->
+    <img src="img/tiles/9/1.png" height='0' width='0' id="tile"/>
+    <p id="Foo">Test</p>
   </body>
 </html>

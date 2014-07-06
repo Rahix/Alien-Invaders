@@ -1,8 +1,9 @@
-{"General": {
-  "Size": {"X":9, "Y":3},
+{
+ "General": {
+  "Size": {"X": 9, "Y": 3},
   "Tileset": "STANDARD"
   },
- "Data": 
+ "Data":
  [ 
    [ 
      {"Tile": 1, "Dir": "W", "Meta": 1},
