@@ -1,6 +1,6 @@
 {
  "General": {
-  "Size": {"X": 9, "Y": 3},
+  "Size": {"X": 9, "Y": 7},
   "Tileset": "STANDARD"
   },
  "Data":
@@ -37,6 +37,50 @@
      {"Tile": 4, "Dir": "S", "Meta": 1},
      {"Tile": 4, "Dir": "S", "Meta": 1},
      {"Tile": 6, "Dir": "S", "Meta": 1}
+   ],
+   [ 
+     {"Tile": 5, "Dir": "S", "Meta": 1},
+     {"Tile": 4, "Dir": "S", "Meta": 1},
+     {"Tile": 5, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "S", "Meta": 1},
+     {"Tile": 2, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "S", "Meta": 1},
+     {"Tile": 1, "Dir": "S", "Meta": 1}
+   ],
+   [ 
+     {"Tile": 15, "Dir": "S", "Meta": 1},
+     {"Tile": 15, "Dir": "W", "Meta": 1},
+     {"Tile": 15, "Dir": "W", "Meta": 1},
+     {"Tile": 15, "Dir": "W", "Meta": 1},
+     {"Tile": 2, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "N", "Meta": 1},
+     {"Tile": 1, "Dir": "N", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 16, "Dir": "E", "Meta": 1}
+   ],
+   [ 
+     {"Tile": 15, "Dir": "S", "Meta": 1},
+     {"Tile": 1, "Dir": "W", "Meta": 1},
+     {"Tile": 2, "Dir": "E", "Meta": 1},
+     {"Tile": 2, "Dir": "E", "Meta": 1},
+     {"Tile": 7, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "N", "Meta": 1},
+     {"Tile": 6, "Dir": "N", "Meta": 1},
+     {"Tile": 4, "Dir": "N", "Meta": 1},
+     {"Tile": 5, "Dir": "N", "Meta": 1}
+   ],
+   [ 
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "E", "Meta": 1},
+     {"Tile": 15, "Dir": "N", "Meta": 1},
+     {"Tile": 5, "Dir": "S", "Meta": 1},
+     {"Tile": 4, "Dir": "S", "Meta": 1},
+     {"Tile": 5, "Dir": "E", "Meta": 1}
    ]
  ]
 }

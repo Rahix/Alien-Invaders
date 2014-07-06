@@ -26,10 +26,7 @@
         xmlhttp.send();
         mapdata = JSON.parse(xmlhttp.responseText);
         map = mapdata.Data;
-        var foo;
-        document.getElementById("Foo").innerHTML;
-        foo = mapdata.General.Size.X;
-        document.getElementById("Foo").innerHTML = foo;
+        drawMap(0,0,canvas.width,canvas.height);S
       }
       
       function drawMap(xOff,yOff,xSize,ySize)
@@ -55,7 +52,14 @@
          {
            for(t=0;t<mapdata.General.Size.Y;t++)
            {
-             alert('');
+             if(map[t][i].Tile < 15)
+             {
+               cctx.drawImage(document.getElementById('tile'),
+                              i*tileX,
+                              t*tileY,
+                              tileX,
+                              tileY);
+             }
            }
          }
       }
@@ -84,6 +88,5 @@
             onmousemove="mouseEventMove(event);"><b>You can not play the game :/</b></canvas>
     <!-- Images -->
     <img src="img/tiles/9/1.png" height='0' width='0' id="tile"/>
-    <p id="Foo">Test</p>
   </body>
 </html>
