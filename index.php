@@ -14,6 +14,8 @@
       var wave;      //Round
       var interval;  //The interval for game-loop
       var tiledim;   //Dimension of the tiles
+      var Aliens;
+      var Alien_NUM;
       
       var TestAlien;
       
@@ -48,22 +50,33 @@
           tiledim = try2;
         else
           tiledim = try1;
+        Aliens = Array(10);
+        Alien_NUM = 0;
         TestAlien = new Alien(0,1,tiledim);
         interval = window.setInterval(loop,(1 / FPS));
       }
       
       function loop()
       {
+        var i;
+        draw();
         if(state == 'WAVE')
         {
           //Send out all registered Aliens
-          wave++;
+          for(i=0;i<Alien_NUM;i++)
+          {
+            Aliens[i].Tick();
+            Aliens[i].Draw();
+          }
         }
         else if(state == 'AREG')
         {
           switch(wave)
           {
             case 1:
+              Alien_NUM = 2;
+              Aliens[0] = new Alien(0,1,tiledim);
+              Aliens[1] = new Alien(1,1,tiledim);
               //Two Normal Aliens
               break;
             case 2:
@@ -78,15 +91,6 @@
         {
           //Don't do anything in the moment
         }
-        drawMap(0,0);
-        //Alert aliens to draw
-        TestAlien.Tick();
-        alienDraw();
-      }
-      
-      function alienDraw()
-      {
-        TestAlien.Draw();
       }
       
       function drawMap(xOff,yOff)
@@ -118,6 +122,13 @@
       
       function draw()
       {
+        erase();
+        drawMap(0,0);
+      }
+      
+      function erase()
+      {
+        cctx.fillRect(0,0,canvas.width,canvas.height);
       }
       
       function mouseEventDown(event)
