@@ -1,13 +1,15 @@
 //Alien-Class
-function Alien(x,y,dim)
+function Alien(x,y,dim,off)
 {
   this.pos = Array(2);
   this.pos[0] = x;
   this.pos[1] = y;
   this.dir = map[y][x].Dir;
   this.health = 25;
-  this.forward = -dim;
+  this.forward = -dim*off;
   this.dim = dim; //Dimension
+  this.lastMove = false;
+  this.isHide = false;
 
   this.Damage = function(i)
   {
@@ -26,6 +28,12 @@ function Alien(x,y,dim)
     //In the middle of a new tile?
     if((this.forward > (this.dim - 1)) && (this.forward < (this.dim + 1)) )
     {
+      //Last move?
+      if(this.lastMove == true)
+      {
+        //Destroy Alien
+        this.isHide = true;
+      }
       //Set direction
       //Calc new alein tile-pos
       if(this.dir == "N")
@@ -49,6 +57,12 @@ function Alien(x,y,dim)
         this.pos[0] = this.pos[0] - 1;
       }
       this.forward = 0;
+      //Check if end of the map?
+      if(map[this.pos[1]][this.pos[0]].Tile == 16)
+      {
+        CALLBACKcameThrough();
+        this.lastMove = true;
+      }
     }
   }
 
@@ -80,6 +94,7 @@ function Alien(x,y,dim)
       y = this.pos[1] * this.dim;
     }
     //Draw image(finally :D)
-    cctx.drawImage(img, x, y, this.dim, this.dim);
+    if(this.isHide == false)
+      cctx.drawImage(img, x, y, this.dim, this.dim);
   }
 }

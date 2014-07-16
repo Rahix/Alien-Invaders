@@ -16,8 +16,11 @@
       var tiledim;   //Dimension of the tiles
       var Aliens;
       var Alien_NUM;
+      var Aliens_Alive;
+      var playerlives;
       
-      var TestAlien;
+      var nwb_state;
+      
       
       //Init-Function:
       function init()
@@ -38,8 +41,9 @@
         mapdata = JSON.parse(xmlhttp.responseText);
         map = mapdata.Data;
         FPS = 30;
-        state = 'AREG';//Alien REGister
+        state = 'IDLE';
         wave = 1;
+        playerlives = 20;
         //Calc tiledim
         var try1;
         var try2;
@@ -50,9 +54,9 @@
           tiledim = try2;
         else
           tiledim = try1;
+        nwb_state = 1;
         Aliens = Array(10);
         Alien_NUM = 0;
-        TestAlien = new Alien(0,1,tiledim);
         interval = window.setInterval(loop,(1 / FPS));
       }
       
@@ -68,29 +72,55 @@
             Aliens[i].Tick();
             Aliens[i].Draw();
           }
+          if(Aliens_Alive == 0)
+          {
+            state = 'IDLE';
+            wave++;
+            nwb_state = 1;
+          }
         }
         else if(state == 'AREG')
         {
           switch(wave)
           {
             case 1:
-              Alien_NUM = 2;
-              Aliens[0] = new Alien(0,1,tiledim);
-              Aliens[1] = new Alien(1,1,tiledim);
               //Two Normal Aliens
+              registerAliens(5);
               break;
             case 2:
               //Four Normal Aliens
+              registerAliens(10);
               break;
             default:
               alert("You played through!");
           }
           state = 'WAVE';
+          nwb_state = 2;
         }
         else if(state == 'IDLE')
         {
-          //Don't do anything in the moment
         }
+      }
+      
+      function registerAliens(n)
+      {
+        var i;
+        var offset;
+        Alien_NUM = n;
+        Aliens_Alive = n;
+        offset = 1;
+        Aliens = new Array(n);
+        for(i = 0;i<n;i++)
+        {
+          Aliens[i] = new Alien(0,1,tiledim,offset);
+          offset++;
+        }
+      }
+      
+      function CALLBACKcameThrough()
+      {
+        playerlives--;
+        Aliens_Alive--;
       }
       
       function drawMap(xOff,yOff)
@@ -124,6 +154,19 @@
       {
         erase();
         drawMap(0,0);
+        //Draw next wave button
+        switch(nwb_state)
+        {
+          case 1:
+            cctx.drawImage(document.getElementById('nwb'),0,0,114,22,0,0,114,22);
+            break;
+          case 2:
+            cctx.drawImage(document.getElementById('nwb'),0,22,114,22,0,0,114,22);
+            break;
+          case 3:
+            cctx.drawImage(document.getElementById('nwb'),0,44,114,22,0,0,114,22);
+            break;
+        }
       }
       
       function erase()
@@ -133,10 +176,26 @@
       
       function mouseEventDown(event)
       {
+        if((state == 'IDLE') &&
+           (event.clientX < 114) &&
+           (event.clientY < 22) &&
+           (nwb_state == 1))
+        {
+          nwb_state = 3;
+        }
       }
       
       function mouseEventUp(event)
       {
+        if((state == 'IDLE') &&
+           (event.clientX < 114) &&
+           (event.clientY < 22) &&
+           (nwb_state == 3))
+        {
+          state = 'AREG';
+          nwb_state = 2;
+          
+        }
       }
       
       function mouseEventMove(event)
@@ -152,5 +211,6 @@
     <!-- Images -->
     <img src="img/tiles/9/1.png" height='0' width='0' id="tile"/>
     <img src="img/aliens/First.png" height='0' width='0' id="alien"/>
+    <img src="img/menus/Next-Wave-Button.png" height='0' width='0' id="nwb" />
   </body>
 </html>
