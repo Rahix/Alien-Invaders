@@ -2,16 +2,20 @@
   <head>
     <title>Alien Invaders</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script src="alien.js"></script>
     <script>
-      var canvas;		//CANVAS opject
-      var cctx;		        //Canvas ConTeXt
-      var xmlhttp;        //For ajax loads
-      var FPS;
-      var map;
-      var mapdata;
-      var state;
-      var wave;
-      var interval;
+      var canvas;    //CANVAS object
+      var cctx;      //Canvas ConTeXt
+      var xmlhttp;   //For ajax loads
+      var FPS;       //Framerate
+      var map;       //mapdata.Data
+      var mapdata;   //Mapdata read from map1.json
+      var state;     //Gamestate
+      var wave;      //Round
+      var interval;  //The interval for game-loop
+      var tiledim;   //Dimension of the tiles
+      
+      var TestAlien;
       
       //Init-Function:
       function init()
@@ -34,6 +38,17 @@
         FPS = 30;
         state = 'AREG';//Alien REGister
         wave = 1;
+        //Calc tiledim
+        var try1;
+        var try2;
+         
+        try1 = canvas.height / mapdata.General.Size.Y;
+        try2 = canvas.width / mapdata.General.Size.X;
+        if(try1 > try2)
+          tiledim = try2;
+        else
+          tiledim = try1;
+        TestAlien = new Alien(0,1,tiledim);
         interval = window.setInterval(loop,(1 / FPS));
       }
       
@@ -63,30 +78,24 @@
         {
           //Don't do anything in the moment
         }
-        drawMap(0,0,canvas.width,canvas.height);
+        drawMap(0,0);
         //Alert aliens to draw
+        TestAlien.Tick();
         alienDraw();
       }
       
       function alienDraw()
       {
+        TestAlien.Draw();
       }
       
-      function drawMap(xOff,yOff,xSize,ySize)
+      function drawMap(xOff,yOff)
       {
          var tileX;
          var tileY;
          
          
-         var try1;
-         var try2;
-         
-         try1 = ySize / mapdata.General.Size.Y;
-         try2 = xSize / mapdata.General.Size.X;
-         if(try1 > try2)
-           tileX = try2;
-         else
-           tileX = try1;
+         tileX = tiledim;
          tileY = tileX;
          //Now Start to Draw
          var i;
